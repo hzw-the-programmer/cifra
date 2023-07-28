@@ -1,8 +1,5 @@
-# Makefile.rules
-CC = armcc
-IGNOR_WARNNINGS = --diag_suppress 1,9,61,66,68,111,117,144,152,167,170,174,177,186,188,191,223,226,236,494,513,550,940,1134,1287,1294,1295,1296,1381,1441,1608,1652,1764,1786,3017,3052
-CFLAGS += --cpu cortex-a7 -O2 --apcs /interwork/ $(IGNOR_WARNNINGS) --fpu VFPv4 --enum_is_int \
-	  -D_RTOS -D_DEBUG --loose_implicit_cast --c99 --gnu
+CFLAGS += -g -O0 -std=gnu99 -fPIC -Wall -Wextra -Werror \
+	  -Wno-unused-parameter -Wno-missing-field-initializers
 CPPFLAGS += -I./ext
 
 ifdef WITH_ASAN
@@ -44,7 +41,7 @@ testchacha20poly1305: $(SOURCES) testchacha20poly1305.o
 testdrbg: $(SOURCES) testdrbg.o
 
 clean:
-	del /F /Q /S *.o *.pyc $(TARGETS) *.gcov *.gcda *.gcno
+	rm -f *.o *.pyc $(TARGETS) *.gcov *.gcda *.gcno
 
 test: $(TARGETS)
 	for x in $(TARGETS) ; do \
